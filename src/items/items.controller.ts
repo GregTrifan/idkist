@@ -1,18 +1,17 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-
-interface Name {
-  name: string;
-}
+import { ItemsService } from './items.service';
+import { Item } from './items.schema';
+import { ItemDto } from './items.dto';
 
 @Controller('items')
 export class ItemsController {
-  @Get()
-  getItems(): string[] {
-    return ['1', '2', '69'];
+  constructor(private readonly itemsService: ItemsService) {}
+  @Get() // GET /items
+  async getItems(): Promise<Item[]> {
+    return this.itemsService.findAll();
   }
-  @Post('add')
-  addItem(@Body() req: Name): string {
-    const name = req.name;
-    return `Req contains name prop of ${name}`;
+  @Post('add') // POST /items/add
+  async create(@Body() itemDto: ItemDto) {
+    await this.itemsService.create(itemDto);
   }
 }
