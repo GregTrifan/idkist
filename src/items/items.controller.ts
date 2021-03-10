@@ -1,5 +1,8 @@
-import { Controller, Get, Post, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+
+interface Name {
+  name: string;
+}
 
 @Controller('items')
 export class ItemsController {
@@ -8,8 +11,8 @@ export class ItemsController {
     return ['1', '2', '69'];
   }
   @Post('add')
-  addItem(@Req() req: Request): string {
-    const { name } = req.body;
+  addItem(@Body() req: Name): string {
+    const name = req.name;
     return `Req contains name prop of ${name}`;
   }
 }
