@@ -6,15 +6,16 @@ import { ItemDto } from './items.dto';
 @Injectable()
 export class ItemsService {
   constructor(@InjectModel(Item.name) private itemModel: Model<ItemDocument>) {}
-
+  // Create a new Item
   async create(ItemDto: ItemDto): Promise<Item> {
     const createdItem = new this.itemModel(ItemDto);
     return createdItem.save();
   }
-
+  // Fetch all Items
   async findAll(): Promise<Item[]> {
     return this.itemModel.find();
   }
+  // Update Item
   async update(Item: ItemDto, name: string): Promise<ItemDto> {
     try {
       const item = await this.itemModel.findOne({ name: name });
@@ -28,6 +29,7 @@ export class ItemsService {
       };
     }
   }
+  // Remove Item
   async remove(name: string): Promise<ItemDto> {
     try {
       const item = await this.itemModel.findOne({ name: name });
