@@ -15,7 +15,6 @@ export class ItemsService {
   async findAll(): Promise<Item[]> {
     return this.itemModel.find();
   }
-  // Upadte Service
   async update(Item: ItemDto, name: string): Promise<ItemDto> {
     try {
       const item = await this.itemModel.findOne({ name: name });
@@ -29,7 +28,6 @@ export class ItemsService {
       };
     }
   }
-  // Remove Service
   async remove(name: string): Promise<ItemDto> {
     try {
       const item = await this.itemModel.findOne({ name: name });
