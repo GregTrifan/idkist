@@ -11,7 +11,34 @@ export class ItemsService {
     const createdItem = new this.itemModel(ItemDto);
     return createdItem.save();
   }
+
   async findAll(): Promise<Item[]> {
     return this.itemModel.find();
+  }
+
+  async update(Item: ItemDto, name: string): Promise<ItemDto> {
+    try {
+      const item = await this.itemModel.findOne({ name: name });
+      item.name = Item.name;
+      item.save();
+      return { ...Item, status: 'Success' };
+    } catch {
+      return {
+        name: '',
+        status: 'Item not found',
+      };
+    }
+  }
+  async remove(name: string): Promise<ItemDto> {
+    try {
+      const item = await this.itemModel.findOne({ name: name });
+      await item.delete();
+      return { ...item, status: 'Success' };
+    } catch {
+      return {
+        name: '',
+        status: 'Item not found',
+      };
+    }
   }
 }
