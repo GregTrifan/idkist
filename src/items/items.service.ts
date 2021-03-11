@@ -2,13 +2,13 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { Item, ItemDocument } from './items.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { ItemDto } from './items.dto';
+import { ItemType } from './items.type';
 @Injectable()
 export class ItemsService {
   constructor(@InjectModel(Item.name) private itemModel: Model<ItemDocument>) {}
   // Create a new Item
-  async create(ItemDto: ItemDto): Promise<Item> {
-    const createdItem = new this.itemModel(ItemDto);
+  async create(Item: ItemType): Promise<Item> {
+    const createdItem = new this.itemModel(Item);
     return createdItem.save();
   }
   // Fetch all Items
@@ -16,7 +16,7 @@ export class ItemsService {
     return this.itemModel.find();
   }
   // Update Item
-  async update(Item: ItemDto, name: string): Promise<ItemDto> {
+  async update(Item: ItemType, name: string): Promise<ItemType> {
     try {
       const item = await this.itemModel.findOne({ name: name });
       item.name = Item.name;
@@ -30,7 +30,7 @@ export class ItemsService {
     }
   }
   // Remove Item
-  async remove(name: string): Promise<ItemDto> {
+  async remove(name: string): Promise<ItemType> {
     try {
       const item = await this.itemModel.findOne({ name: name });
       await item.delete();
