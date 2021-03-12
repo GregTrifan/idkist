@@ -29,6 +29,7 @@
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.6.13",
     "@nestjs/platform-fastify": "^7.6.13",
+    "@types/bcrypt": "^3.0.0",
     "bcrypt": "^5.0.1",
     "mongoose": "^5.11.19",
     "passport": "^0.4.1",
