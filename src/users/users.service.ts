@@ -10,7 +10,7 @@ export class UsersService {
     @InjectModel(Users.name) private usersModel: Model<UsersDocument>,
   ) {}
   async create(account: UserType): Promise<UserType> {
-    console.log(account);
+    // Hashing password
     const hashed = await bcrypt.hash(account.password, 12);
     const user = new this.usersModel({
       username: account.username,
