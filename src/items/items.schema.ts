@@ -5,7 +5,7 @@ export type ItemDocument = Item & Document;
 
 @Schema()
 export class Item {
-  @Prop()
+  @Prop({ required: true, unique: true })
   name: string;
 }
 export const ItemSchema = SchemaFactory.createForClass(Item);
