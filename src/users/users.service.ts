@@ -16,7 +16,6 @@ export class UsersService {
       username: account.username,
       password: hashed,
     });
-    console.log(user);
     return user.save();
   }
   async findOne(username: string): Promise<UserType | undefined> {
