@@ -19,19 +19,20 @@ export class AccountController {
     private userService: UsersService,
   ) {}
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(LocalAuthGuard) // Use LocalGuard, authorises auth from POST
   @Post('login')
   async login(@Request() req) {
-    return this.authService.login(req.user);
+    return this.authService.login(req.user); // Get JWT of the user
+    // PS: in case of failure, you'll get unauthorised
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard) // JWT Guard, avalaible only when having the Token
   @Get('profile')
   getProfile(@Request() req) {
-    return req.user;
+    return req.user; // Get User Details
   }
 
-  @Post('register')
+  @Post('register') // Create new User, gonna be secured with ReCapcha or something similar
   async register(@Body() user: UserType) {
     return this.userService.create(user);
   }
