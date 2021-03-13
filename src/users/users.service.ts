@@ -12,7 +12,7 @@ export class UsersService {
   async create(account: UserType): Promise<UserType> {
     // Hashing password
     const hashed = await bcrypt.hash(account.password, 12);
-
+    // Create User
     const user = new this.usersModel({
       username: account.username,
       password: hashed,

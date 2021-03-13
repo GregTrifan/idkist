@@ -11,6 +11,7 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
+  // Validation Pipe
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
 }
