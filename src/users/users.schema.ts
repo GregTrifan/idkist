@@ -9,5 +9,7 @@ export class Users {
   username: string;
   @Prop({ required: true })
   password: string;
+  @Prop({ minlength: 10 })
+  description: string;
 }
 export const UsersSchema = SchemaFactory.createForClass(Users);
