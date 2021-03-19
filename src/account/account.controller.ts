@@ -6,8 +6,8 @@ import {
   UseGuards,
   Body,
 } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
-import { UserType } from 'src/users/users.type';
+import { UsersService } from '../users/users.service';
+import { UserType } from '../users/users.type';
 import { AuthService } from '../auth/auth.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
