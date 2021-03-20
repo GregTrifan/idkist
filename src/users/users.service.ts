@@ -9,16 +9,21 @@ export class UsersService {
   constructor(
     @InjectModel(Users.name) private usersModel: Model<UsersDocument>,
   ) {}
-  async create(account: UserType): Promise<UserType> {
+  async create(account: UserType): Promise<UserType | any> {
     // Hashing password
     const hashed = await bcrypt.hash(account.password, 12);
     // Create User
+
     const user = new this.usersModel({
       username: account.username,
       password: hashed,
     });
-
-    return user.save();
+    try {
+      await user.save();
+      return { username: user.username, status: 'Success' };
+    } catch {
+      return { status: 'Fail', reason: 'Username already existing' };
+    }
   }
   async findOne(username: string): Promise<UserType | undefined> {
     return this.usersModel.findOne({ username: username });

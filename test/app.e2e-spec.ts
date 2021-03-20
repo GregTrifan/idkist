@@ -20,6 +20,36 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect("Hello World, I'm alive!");
   });
+
+  it('Register a new user', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/account/register')
+      .send({ username: 'Lorem', password: 'IpsumDolor' })
+      .expect(201);
+    const status = response.body.status;
+    expect(status).toMatch('Success');
+  });
+
+  it('Authentificates a user and get a JWT Token from the response', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/account/login')
+      .send({ username: 'Lorem', password: 'IpsumDolor' })
+      .expect(201);
+    const jwtToken = response.body.access_token;
+    expect(jwtToken).toMatch(
+      /^[A-Za-z0-9-_=]+.[A-Za-z0-9-_=]+.?[A-Za-z0-9-_.+/=]*$/,
+    ); // jwt regex
+  });
+
+  it('fails to authenticate user with an incorrect password', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/account/login')
+      .send({ username: 'Lorem', password: 'wrong12234' })
+      .expect(401);
+
+    expect(response.body.accessToken).not.toBeDefined();
+  });
+
   afterAll(async () => {
     await app.close();
   });
