@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { Item, ItemDocument } from './items.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { ItemType } from './items.type';
+import { ItemType } from './items.dto';
 @Injectable()
 export class ItemsService {
   constructor(@InjectModel(Item.name) private itemModel: Model<ItemDocument>) {}

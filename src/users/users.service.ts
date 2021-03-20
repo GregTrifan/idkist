@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
-import { UserType } from './users.type';
+import { UserType } from './users.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Users, UsersDocument } from './users.schema';
 import * as bcrypt from 'bcrypt';
